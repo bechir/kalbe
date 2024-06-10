@@ -2,16 +2,25 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "target": "ESNext",
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "*": ["./app/*"],
+      "tests": ["./tests/*"],
+      "@components/*": ["./app/components/*"],
+      "@components": ["./app/components"],
+      "@extensions/*": ["./app/extensions/*"],
+      "@hooks/*": ["./app/hooks/*"],
+      "@hooks": ["./app/hooks"],
+      "@constants/*": ["./app/constants/*"],
+      "@contexts/*": ["./app/contexts/*"],
+      "@services/*": ["./app/services/*"],
+      "@services": ["./app/services"],
+      "@models/*": ["./app/models/*"],
+      "@models": ["./app/models"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
