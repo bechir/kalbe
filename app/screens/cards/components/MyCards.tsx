@@ -1,9 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Box, Clickable, Text, useTheme } from "components";
 import React from "react";
-import VirtualCard from "./VirtualCard";
 import CardTransactionSummary from "./CardTransactionSummary";
 import CardSettings from "./CardSettings";
+import VirtualCard from "./VirtualCard";
 
 const MyCards = () => {
   const { iconSize, radius } = useTheme();

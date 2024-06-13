@@ -6,6 +6,7 @@ export * from "./IconKeyAlt";
 export * from "./IconLoad";
 export * from "./IconLock";
 export * from "./IconRemove";
+export * from "./IconSend";
 export * from "./IconUser";
 export * from "./IconUserScan";
 export * from "./IconWallet";

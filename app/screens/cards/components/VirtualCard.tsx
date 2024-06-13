@@ -1,7 +1,7 @@
-import { Fontisto } from "@expo/vector-icons";
 import { Box, Clickable, Text, useTheme } from "components";
+import config from "config";
 import { ASSETS } from "constants/app";
-import { useUser, useUserDetails } from "hooks";
+import { useUser } from "hooks";
 import React from "react";
 import { Image } from "react-native";
 
@@ -20,7 +20,6 @@ const VirtualCard = ({ onPress }: VirtualCardProps) => {
         marginBottom="m"
         justifyContent="space-between"
         width={"100%"}
-        height={200}
         backgroundColor="tint"
         borderRadius={radius.m}
         padding="m"
@@ -31,8 +30,9 @@ const VirtualCard = ({ onPress }: VirtualCardProps) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Image source={ASSETS.iconLight} style={{ width: 30, height: 30 }} />
-          <Text color="white" variant="credit" fontSize={21}>4 462 <Text variant="small" fontSize={14} color="white">MRU</Text></Text>
+          {/* <Image source={ASSETS.appIcon} tintColor="#fff" style={{ width: 30, height: 30 }} /> */}
+          <Text color="white" fontFamily="LeagueSpartanBold" fontSize={25}>{config.app.name}</Text>
+          <Image source={ASSETS.partnerLogo} tintColor="#fff" style={{ width: 75, height: 30 }} />
         </Box>
         <Box marginVertical="m">
           <Image source={ASSETS.iconEmv} style={{ width: 48, height: 24 }} />
@@ -50,9 +50,9 @@ const VirtualCard = ({ onPress }: VirtualCardProps) => {
             <Text variant="mono" color="white" fontSize={10}>***</Text>
           </Box>
         </Box>
-        <Box flexDirection="row" justifyContent="space-between">
-          <Text color="white" variant="mono">{user?.fullname}</Text>
-          <Image source={ASSETS.visaLogoWhite} style={{ width: 55, height: 17 }} />
+        <Box flexDirection="row" justifyContent="space-between" marginTop="s">
+          <Text color="white" variant="mono">{('Bechir Ba').toUpperCase()}</Text>
+          <Image source={ASSETS.visaLogo} tintColor="#fff" style={{ width: 55, height: 17 }} />
         </Box>
       </Box>
     </Clickable>

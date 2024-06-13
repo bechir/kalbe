@@ -2,40 +2,24 @@ import {
   Box,
   Container,
   CreatePasscodeAlertButton,
-  IconButton,
   Text,
-  VerifyIdentityButton,
-  VerifyIdentityModal,
+  VerifyIdentityButton
 } from "components";
-import React, { useState } from "react";
+import React from "react";
 import NoCard from "./components/NoCard";
 import { CardsStackScreenProps } from "Routes";
 import ClickToShowCardInfo from "./components/ClickToShowCardInfo";
 import { ScrollView } from "react-native-gesture-handler";
 import MyCards from "./components/MyCards";
 import { EmptyReturnFn } from "types";
-import { useUser } from "hooks";
+import { useUser, useVerifyIdentity } from "hooks";
 
 const Cards = ({ navigation }: CardsStackScreenProps<"Cards">) => {
   const { state: { user } } = useUser();
-  const [verifyModalVisible, setVerifyModalVisible] = useState(false);
+  const { VerifyIdentityModal, toggleVerifyIdentityModal } = useVerifyIdentity();
 
   const onCardRequest = () => {
     navigation.navigate("CardRequest");
-  };
-
-  const toggleVerifyIdentityModal = () => {
-    setVerifyModalVisible(!verifyModalVisible);
-  };
-
-  const handleLater = () => {
-    // TODO log click 'later' event
-    toggleVerifyIdentityModal();
-  };
-
-  const handleVerifyIdentity = () => {
-    toggleVerifyIdentityModal();
-    navigation.navigate("VerifyIdentity");
   };
 
   const handleCreatePasscode = () => {
@@ -48,11 +32,7 @@ const Cards = ({ navigation }: CardsStackScreenProps<"Cards">) => {
 
   return (
     <Container innerPadding>
-      <VerifyIdentityModal
-        visible={verifyModalVisible}
-        onClose={handleLater}
-        onStartPress={handleVerifyIdentity}
-      />
+      <VerifyIdentityModal />
       <CardTitle onCardRequest={onCardRequest} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ClickToShowCardInfo />

@@ -13,7 +13,7 @@ const Balance = () => {
   }
 
   return (
-    <Box backgroundColor="secondaryBackground" padding="l" borderRadius={radius.m}>
+    <Box backgroundColor="secondaryBackground" marginTop="l" padding="l" borderRadius={radius.m}>
       <Box flexDirection="row" justifyContent="space-between">
         <Text variant='body'>
           Solde disponible

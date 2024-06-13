@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { MainTabParamList, TabCardsParamList, TabHomeParamList, TabMenuParamList } from "Routes";
 import { CurrencyConvert, Home } from "screens/home";
 import { About, Menu, Support } from "screens/menu";
-import { CardRequest, Cards, VerifyIdentity } from "screens/cards";
-import { CreatePasscodeModal } from "screens/shared";
+import { CardRequest, Cards } from "screens/cards";
+import { CreatePasscodeModal, VerifyIdentity } from "screens/shared";
 
 const MainTab = createBottomTabNavigator<MainTabParamList>();
 
@@ -33,14 +33,14 @@ export function MainTabNavigator() {
         },
       }}
     >
-      {/* <MainTab.Screen
+      <MainTab.Screen
         name="TabHome"
         component={TabHomeNavigator}
         options={{
           title: t("home"),
           tabBarIcon: ({ color }) => <IconWallet color={color} fontSize={iconSize.tab-5} />
         }}
-      /> */}
+      />
       <MainTab.Screen
         name="TabCards"
         component={TabCardsNavigator}
@@ -68,13 +68,22 @@ function TabHomeNavigator() {
   return (
     <HomeStack.Navigator
       screenOptions={{
+        headerBackTitle: "Retour",
         animation: "slide_from_right",
         headerTintColor: colors.tint,
         headerTitleStyle: { color: "#222" },
+        headerStyle: {
+          backgroundColor: colors.mainBackground,
+        },
         headerShown: false,
       }}
     >
       <HomeStack.Screen name="Home" component={Home} />
+      <CardsStack.Screen
+        name="VerifyIdentity"
+        component={VerifyIdentity}
+        options={{ title: "Verifiez votre identité", headerShown: true }}
+      />
       <HomeStack.Screen name="CurrencyConvert" component={CurrencyConvert} />
     </HomeStack.Navigator>
   );
@@ -122,10 +131,14 @@ function MenuNavigator() {
   return (
     <MenuStack.Navigator
       screenOptions={{
+        headerBackTitle: "Retour",
         animation: "slide_from_right",
         headerTintColor: colors.tint,
         headerTitleStyle: { color: "#222" },
         headerShown: false,
+        headerStyle: {
+          backgroundColor: colors.mainBackground,
+        },
       }}
     >
       <MenuStack.Screen
@@ -135,7 +148,7 @@ function MenuNavigator() {
       <MenuStack.Screen
         name="VerifyIdentity"
         component={VerifyIdentity}
-        options={{ title: "Verifiez votre identité" }}
+        options={{ title: "Verifiez votre identité", headerShown: true }}
       />
       <MenuStack.Group screenOptions={{ presentation: "fullScreenModal" }}>
         <MenuStack.Screen name="CreatePasscode" component={CreatePasscodeModal} />

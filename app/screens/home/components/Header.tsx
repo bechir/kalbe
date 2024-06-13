@@ -8,7 +8,6 @@ const Header = () => {
 
   return (
     <Box
-      marginBottom="l"
       flexDirection="row"
       alignItems="center"
       justifyContent="space-between"

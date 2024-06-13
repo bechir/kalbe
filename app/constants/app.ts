@@ -6,10 +6,9 @@ export const SETTINGS_TOKEN = `${SUFFIXES}-settings`;
 
 export const ASSETS = {
     logo: require('../../assets/images/logo.png'),
-    iconDark: require('../../assets/images/k-black-transparent.png'),
-    iconLight: require('../../assets/images/k-white-transparent.png'),
+    appIcon: require('../../assets/images/k-transparent.png'),
     iconEmv: require('../../assets/images/emv.png'),
-    visaLogoBlue: require('../../assets/images/visa-blue.png'),
-    visaLogoWhite: require('../../assets/images/visa-white.png'),
+    visaLogo: require('../../assets/images/visa.png'),
+    partnerLogo: require('../../assets/images/bmci.png'),
     flagMr: require('../../assets/images/flag.mr.png'),
 }

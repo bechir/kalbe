@@ -18,6 +18,9 @@ enableScreens();
 
 const fonts = {
   SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+  LeagueSpartan: require("../assets/fonts/LeagueSpartan-Regular.ttf"),
+  LeagueSpartanBold: require("../assets/fonts/LeagueSpartan-Bold.ttf"),
+  LeagueSpartanMedium: require("../assets/fonts/LeagueSpartan-Medium.ttf"),
 
   SFProDisplayBold: require("../assets/fonts/SF-Pro-Display-Bold.otf"),
   SFProDisplaySemiBold: require("../assets/fonts/SF-Pro-Text-Semibold.otf"),

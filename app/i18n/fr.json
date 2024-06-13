@@ -1,5 +1,5 @@
 {
-  "home": "Accueil",
+  "home": "Kalbe",
   "back": "Retour",
   "next": "Suivant",
   "fr": "Français",
@@ -7,5 +7,9 @@
   "ar": "العربية",
   "account": "Compte",
   "cards": "Cartes",
-  "card": "Carte"
+  "card": "Carte",
+  "mr": "Mr.",
+  "madam": "Mme",
+  "miss": "Mlle",
+  "select": "Sélectionnez"
 }

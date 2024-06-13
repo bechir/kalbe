@@ -7,12 +7,11 @@ import {
   CreatePasscodeAlertButton,
   Text,
   VerifyIdentityButton,
-  VerifyIdentityModal,
   theme,
 } from "components";
 import { ScrollView } from "react-native-gesture-handler";
 import { MenuItem } from "./components/MenuItem";
-import { useAuth, useUser } from "hooks";
+import { useAuth, useUser, useVerifyIdentity } from "hooks";
 import { MenuStackScreenProps } from "Routes";
 import { Alert, Share } from "react-native";
 import config from "config";
@@ -22,21 +21,7 @@ const Menu = ({ navigation }: MenuStackScreenProps<"Menu">) => {
     state: { user },
   } = useUser();
   const { signout } = useAuth();
-  const [verifyModalVisible, setVerifyModalVisible] = useState(false);
-
-  const toggleVerifyIdentityModal = () => {
-    setVerifyModalVisible(!verifyModalVisible);
-  };
-
-  const handleLater = () => {
-    // TODO log click 'later' event
-    toggleVerifyIdentityModal();
-  };
-
-  const handleVerifyIdentity = () => {
-    setVerifyModalVisible(false);
-    navigation.navigate("VerifyIdentity");
-  };
+  const { VerifyIdentityModal, toggleVerifyIdentityModal } = useVerifyIdentity();
 
   const handleCreatePasscode = () => {
     navigation.navigate("CreatePasscode");
@@ -78,11 +63,7 @@ const Menu = ({ navigation }: MenuStackScreenProps<"Menu">) => {
         </Text>
         <Text variant="info">Bonjour, Kevin</Text>
       </Box>
-      <VerifyIdentityModal
-        visible={verifyModalVisible}
-        onClose={handleLater}
-        onStartPress={handleVerifyIdentity}
-      />
+      <VerifyIdentityModal />
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         {renderSecurityAlert()}
         <Box>

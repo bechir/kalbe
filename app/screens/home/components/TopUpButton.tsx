@@ -16,7 +16,7 @@ const TopUpButton = () => {
         alignItems="center"
       >
         <Text color="mainBackground" variant="button" paddingEnd="s">
-          Recharger mon compte
+          Déposer de l'argent
         </Text>
         <Feather
           color={colors.mainBackground}
