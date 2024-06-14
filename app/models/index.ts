@@ -3,7 +3,15 @@ export type NamedId = {
   name: string;
 };
 
-export type User = {
+export type UserBasicInfosFormDTO = {
+  title?: "man" | "miss" | "madam";
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+}
+
+export type User = UserBasicInfosFormDTO & {
   id: string;
   token: string;
   phone: string;

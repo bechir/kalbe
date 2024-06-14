@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 import axios, { bearerAuthHeader } from "./api";
-import { Credentials, RegisterDTO, User } from "models";
+import { Credentials, RegisterDTO, User, UserBasicInfosFormDTO } from "models";
 
 export function signup(user: RegisterDTO) {
   return axios
@@ -27,6 +27,12 @@ export function confirmPhone(): Promise<User | null> {
 export function createPasscode(passcode: string): Promise<User | null> {
   return axios
     .post("/account/create-passcode", { passcode })
+    .then((res) => res.data);
+}
+
+export function edit(data: UserBasicInfosFormDTO): Promise<User | null> {
+  return axios
+    .post("/account/edit", { ...data })
     .then((res) => res.data);
 }
 

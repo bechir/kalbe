@@ -5,6 +5,7 @@ import { Modal } from "react-native";
 import { IconUserScan } from "./icons";
 import { Button } from "./Button";
 import { Link } from "./Link";
+import { Ionicons } from "@expo/vector-icons";
 
 type VerifyIdentityModalProps = {
   visible: boolean;
@@ -17,7 +18,7 @@ export const VerifyIdentityModal = ({
   onClose,
   onStartPress,
 }: VerifyIdentityModalProps) => {
-  const { iconSize } = useTheme();
+  const { iconSize, radius } = useTheme();
 
   return (
     <Modal visible={visible} animationType="slide">
@@ -40,6 +41,14 @@ export const VerifyIdentityModal = ({
             seront pas partagés sans votre permission, sauf si la loi l'exige.
           </Text>
         </Box>
+        <Box borderWidth={1} borderColor="muted" borderRadius={radius.xs} width={"100%"} padding="m">
+          <Text marginBottom="m" variant="subtitle">Informations à renseigner:</Text>
+          <Box>
+            <Item text="Informations personnelles" />
+            <Item text="Photo de votre passport ou carte d'identité nationale" />
+            <Item text="Une photo récente" />
+          </Box>
+        </Box>
         <Box marginBottom="xxl" alignItems="center">
           <Button onPress={onStartPress} text="Commencer" fullWidth />
           <Link text="Je le ferai plus tard." onPress={onClose} />
@@ -48,3 +57,17 @@ export const VerifyIdentityModal = ({
     </Modal>
   );
 };
+
+type ItemProps = {
+  text: string
+}
+
+const Item = ({ text }: ItemProps) => {
+  const { colors } = useTheme();
+  return (
+    <Box flexDirection="row" alignItems="center" marginBottom="s">
+      <Ionicons color={colors.success} name="checkmark" size={19} style={{ paddingEnd: 5 }} />
+      <Text fontSize={12}>{text}</Text>
+    </Box>
+  );
+}

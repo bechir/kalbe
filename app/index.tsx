@@ -13,8 +13,13 @@ import "./i18n";
 import { ASSETS } from "constants/app";
 import { AuthProvider } from "contexts/AuthContext";
 import { UserProvider } from "contexts/UserContext";
+import { LogBox } from "react-native";
 
 enableScreens();
+
+LogBox.ignoreLogs([
+  '[Reanimated] Reduced motion setting is enabled on this device.',
+]);
 
 const fonts = {
   SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),

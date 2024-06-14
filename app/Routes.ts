@@ -62,27 +62,29 @@ export type MainTabParamList = {
   TabMenu: undefined;
 };
 
+type VerifyIdentityRoutes = {
+  VerifyIdentity: undefined;
+  UploadDocuments: undefined;
+};
+
 export type TabHomeParamList = {
   Home: undefined;
   CreatePasscode: undefined;
   CurrencyConvert: undefined;
-  VerifyIdentity: undefined;
-};
+} & VerifyIdentityRoutes;
 
 export type TabCardsParamList = {
   Cards: undefined;
   CreatePasscode: undefined;
   CardRequest: undefined;
-  VerifyIdentity: undefined;
-};
+} & VerifyIdentityRoutes;
 
 export type TabMenuParamList = {
   Menu: undefined;
   About: undefined;
   Support: undefined;
-  VerifyIdentity: undefined;
   CreatePasscode: undefined;
-};
+} & VerifyIdentityRoutes;
 
 export type AuthNavigation = NativeStackNavigationProp<AuthStackParamList>;
 export type SecurityNavigation =
