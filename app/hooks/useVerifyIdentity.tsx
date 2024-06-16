@@ -1,10 +1,7 @@
 import * as React from "react";
-import Toast from 'react-native-toast-message';
-import { useAuth, useUser } from "./contexts";
-import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import { CardsNavigation, HomeNavigation, MenuNavigation } from "Routes";
-import { VerifyIdentityModal as VerifyIdentityModalBase } from "components";
+import { VerifyIdentityModal as VerifyIdentityModalBase } from "@components/VerifyIdentityModal";
 
 export function useVerifyIdentity() {
 

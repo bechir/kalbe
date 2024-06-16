@@ -1,16 +1,17 @@
-import React from 'react'
-import { Container, VerifyIdentityButton } from 'components'
-import Balance from './components/Balance'
-import Header from './components/Header'
-import Transactions from './components/Transactions'
-import SendOrReceive from './components/SendOrReceive'
-import { useUser, useVerifyIdentity } from 'hooks'
+import React from "react";
+import { Container, UserNotVerified } from "components";
+import Balance from "./components/Balance";
+import Header from "./components/Header";
+import Transactions from "./components/Transactions";
+import SendOrReceive from "./components/SendOrReceive";
+import { useUser } from "hooks";
 
 const Home = () => {
-  const { state: { user } } = useUser();
-  const { VerifyIdentityModal, toggleVerifyIdentityModal } = useVerifyIdentity();
+  const {
+    state: { user },
+  } = useUser();
 
-  if(!user) {
+  if (!user) {
     return null;
   }
 
@@ -24,14 +25,11 @@ const Home = () => {
           <SendOrReceive />
         </React.Fragment>
       ) : (
-        <React.Fragment>
-          <VerifyIdentityButton onPress={toggleVerifyIdentityModal} />
-          <VerifyIdentityModal />
-        </React.Fragment>
+        <UserNotVerified status={user.status} />
       )}
       <Transactions />
     </Container>
   );
-}
+};
 
-export default Home
+export default Home;

@@ -4,8 +4,8 @@ import { Box, Text, useTheme } from "./Theme";
 import { Modal } from "react-native";
 import { IconUserScan } from "./icons";
 import { Button } from "./Button";
-import { Link } from "./Link";
 import { Ionicons } from "@expo/vector-icons";
+import { Clickable } from "./Clickable";
 
 type VerifyIdentityModalProps = {
   visible: boolean;
@@ -49,9 +49,11 @@ export const VerifyIdentityModal = ({
             <Item text="Une photo récente" />
           </Box>
         </Box>
-        <Box marginBottom="xxl" alignItems="center">
+        <Box marginBottom="xl" alignItems="center">
           <Button onPress={onStartPress} text="Commencer" fullWidth />
-          <Link text="Je le ferai plus tard." onPress={onClose} />
+          <Clickable onPress={onClose} style={{ borderBottomWidth: 1 }}>
+            <Text marginBottom="none" variant="button">Je le ferai plus tard</Text>
+          </Clickable>
         </Box>
       </Box>
     </Modal>

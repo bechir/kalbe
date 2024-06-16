@@ -6,7 +6,7 @@ import { MainTabParamList, TabCardsParamList, TabHomeParamList, TabMenuParamList
 import { CurrencyConvert, Home } from "screens/home";
 import { About, Menu, Support } from "screens/menu";
 import { CardRequest, Cards } from "screens/cards";
-import { CreatePasscodeModal, UploadDocuments, VerifyIdentity } from "screens/shared";
+import { CreatePasscodeModal, UploadDocuments, UploadDocumentsModal, VerifyIdentity } from "screens/shared";
 
 const MainTab = createBottomTabNavigator<MainTabParamList>();
 
@@ -90,6 +90,9 @@ function TabHomeNavigator() {
           component={UploadDocuments}
           options={{ title: "Verifiez votre identité" }}
         />
+        <HomeStack.Group screenOptions={{ presentation: "modal", headerShown: false, gestureEnabled: false }}>
+          <HomeStack.Screen name="UploadDocumentsModal" component={UploadDocumentsModal} />
+        </HomeStack.Group>
       </HomeStack.Group>
       <HomeStack.Screen name="CurrencyConvert" component={CurrencyConvert} />
     </HomeStack.Navigator>

@@ -11,5 +11,6 @@ export * from "./FormContainer";
 export * from "./IconButton";
 export * from "./Theme";
 export * from "./Link";
+export * from "./UserNotVerified";
 export * from "./VerifyIdentityButton";
 export * from "./VerifyIdentityModal";

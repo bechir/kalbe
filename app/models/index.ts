@@ -11,6 +11,8 @@ export type UserBasicInfosFormDTO = {
   city: string;
 }
 
+export type VerificationStatus = "none" | "pending" | "rejected" | "verified";
+
 export type User = UserBasicInfosFormDTO & {
   id: string;
   token: string;
@@ -19,6 +21,7 @@ export type User = UserBasicInfosFormDTO & {
   phoneVerified: boolean;
   isVerified: boolean;
   hasPasscode: boolean;
+  status: VerificationStatus;
 };
 
 export type RegisterDTO = Pick<User, "phone">;

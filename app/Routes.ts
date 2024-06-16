@@ -18,6 +18,7 @@ export type RootStackParamList = {
   Auth: NavigatorScreenParams<AuthStackParamList> | undefined;
   Main: NavigatorScreenParams<MainTabParamList> | undefined;
   Security: NavigatorScreenParams<SecurityStackParamList> | undefined;
+  InternalError: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -65,6 +66,7 @@ export type MainTabParamList = {
 type VerifyIdentityRoutes = {
   VerifyIdentity: undefined;
   UploadDocuments: undefined;
+  UploadDocumentsModal: { documentType: 'passport' | 'id_card' };
 };
 
 export type TabHomeParamList = {

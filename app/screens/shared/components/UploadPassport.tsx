@@ -1,29 +1,36 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Box, IconUpload, Text, useTheme } from "components";
+import { Box, Clickable, IconUpload, Text, useTheme } from "components";
 import React from "react";
 
-const UploadPassport = () => {
+type UploadPassportProps = {
+  onPress: () => void;
+  filename: string | null;
+}
+
+const UploadPassport = ({ onPress, filename }: UploadPassportProps) => {
   const { radius, colors } = useTheme();
 
   return (
     <Box>
-      <Text>Uploadez votre passeport</Text>
-      <Box
-        justifyContent="space-between"
-        alignItems="center"
-        flexDirection="row"
-        marginVertical="m"
-        borderRadius={radius.xs}
-        padding="m"
-        borderWidth={1}
-        borderColor="tint"
-        borderStyle="dashed"
-      >
-        <Text color="tint" opacity={0.5}>
-          Cliquez ici pour choisir un document
-        </Text>
-        <IconUpload fontSize={29} />
-      </Box>
+      <Text>Ajoutez une photo de votre passeport</Text>
+      <Clickable onPress={onPress}>
+        <Box
+          justifyContent="space-between"
+          alignItems="center"
+          flexDirection="row"
+          marginVertical="m"
+          borderRadius={radius.xs}
+          padding="m"
+          borderWidth={1}
+          borderColor="tint"
+          borderStyle="dashed"
+        >
+          <Text color="tint" opacity={0.5}>
+            {filename ?? "Cliquez ici pour choisir une photo"}
+          </Text>
+          <IconUpload fontSize={29} />
+        </Box>
+      </Clickable>
       <Box flexDirection="row" alignItems="center">
         <Ionicons
           size={17}

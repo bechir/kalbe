@@ -23,6 +23,7 @@ export type UserContextType = {
   confirmPhoneNumber: () => Promise<void>;
   createPasscode: (passcode: string) => Promise<void>;
   deleteAccount: () => Promise<void>;
+  updateUser: (data: User) => Promise<void>;
 
   state: UserState;
 };
@@ -72,6 +73,11 @@ const userDetails = (dispatch: Dispatch<UserAction>) => async () => {
           });
   });
 };
+
+const updateUser = (dispatch: Dispatch<UserAction>) => async (user: User) => {
+  dispatch({ type: "UPDATE_USER", payload: user })
+  return AsyncStorage.setItem(USER_DETAILS_ID, JSON.stringify(user))
+}
 
 const confirmPhoneNumber =
   (dispatch: Dispatch<UserAction>) => async () => {
@@ -154,6 +160,7 @@ export const { Provider: UserProvider, Context: UserContext } =
       confirmPhoneNumber,
       createPasscode,
       deleteAccount,
+      updateUser,
     },
     DEFAULT_STATE
   );

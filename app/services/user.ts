@@ -36,6 +36,16 @@ export function edit(data: UserBasicInfosFormDTO): Promise<User | null> {
     .then((res) => res.data);
 }
 
+export function kycVerification(data: FormData): Promise<User> {
+  return axios
+    .post("/account/kyc-verification", data, {
+      headers: {
+        "Content-Type": "multipart/form-data;"
+      }
+    })
+    .then((res) => res.data);
+}
+
 export function details(): Promise<User | null> {
   return axios
     .get("/account", { cache: false })
