@@ -75,7 +75,7 @@ export default function Navigation() {
     }
   };
 
-  if (isLoading || state.isLoading) {
+  if (state.isLoading) {
     return <ActivityIndicator style={{ flex: 1 }} />;
   }
 
