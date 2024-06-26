@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Toast from "react-native-toast-message";
-import * as WebBrowser from 'expo-web-browser';
+import * as WebBrowser from "expo-web-browser";
 import {
   Box,
   Container,
   CreatePasscodeAlertButton,
   Text,
-  VerifyIdentityButton,
+  UserNotVerified,
   theme,
 } from "components";
 import { ScrollView } from "react-native-gesture-handler";
 import { MenuItem } from "./components/MenuItem";
-import { useAuth, useUser, useVerifyIdentity } from "hooks";
+import { useAuth, useUser } from "hooks";
 import { MenuStackScreenProps } from "Routes";
 import { Alert, Share } from "react-native";
 import config from "config";
@@ -21,7 +21,6 @@ const Menu = ({ navigation }: MenuStackScreenProps<"Menu">) => {
     state: { user },
   } = useUser();
   const { signout } = useAuth();
-  const { VerifyIdentityModal, toggleVerifyIdentityModal } = useVerifyIdentity();
 
   const handleCreatePasscode = () => {
     navigation.navigate("CreatePasscode");
@@ -45,7 +44,7 @@ const Menu = ({ navigation }: MenuStackScreenProps<"Menu">) => {
     if (!user?.hasPasscode) {
       return <CreatePasscodeAlertButton onPress={handleCreatePasscode} />;
     } else if (!user.isVerified) {
-      return <VerifyIdentityButton onPress={toggleVerifyIdentityModal} />;
+      return <UserNotVerified status={user.status} />;
     }
 
     return null;
@@ -61,9 +60,8 @@ const Menu = ({ navigation }: MenuStackScreenProps<"Menu">) => {
         <Text variant="title" marginVertical="none">
           Compte
         </Text>
-        <Text variant="info">Bonjour, Kevin</Text>
+        <Text variant="info">Bonjour, {user.fullname}</Text>
       </Box>
-      <VerifyIdentityModal />
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         {renderSecurityAlert()}
         <Box>
@@ -88,7 +86,12 @@ const Menu = ({ navigation }: MenuStackScreenProps<"Menu">) => {
             hasTopBorder
             onPress={shareApp}
           />
-          <MenuItem text="Discuter avec nous" icon="chatbox" hasArrow onPress={() => navigation.navigate("Support")} />
+          <MenuItem
+            text="Discuter avec nous"
+            icon="chatbox"
+            hasArrow
+            onPress={() => navigation.navigate("Support")}
+          />
           <MenuItem
             onPress={handleSignout}
             text="Déconnexion"
@@ -105,33 +108,36 @@ const Menu = ({ navigation }: MenuStackScreenProps<"Menu">) => {
 export default Menu;
 
 function shareApp() {
-  Share.share({
+  Share.share(
+    {
       title: `Téléchargez ${config.app.name}`,
-      message: `Créez des cartes prépayées virtuelles pour vos achats en ligne. ${config.app.download_url.web}`
-  }, {
+      message: `Créez des cartes prépayées virtuelles pour vos achats en ligne. ${config.app.download_url.web}`,
+    },
+    {
       dialogTitle: `Téléchargez ${config.app.name}`,
-  }).then(res => {
-      if(res.action == "sharedAction") {
-          Toast.show({
-            type: "success",
-            text1: "Merci!",
-          })
-      }
-  })
+    }
+  ).then((res) => {
+    if (res.action == "sharedAction") {
+      Toast.show({
+        type: "success",
+        text1: "Merci!",
+      });
+    }
+  });
 }
 
 function openPrivacyPage() {
-  openPage('securite-et-confidentialite');
+  openPage("securite-et-confidentialite");
 }
 
 function openTermsPage() {
-  openPage('conditions-utilisation');
+  openPage("conditions-utilisation");
 }
 
 function openPage(path: string) {
   WebBrowser.openBrowserAsync(`${config.app.url}/${path}`, {
     toolbarColor: theme.colors.tint,
-    controlsColor: '#fff',
+    controlsColor: "#fff",
     readerMode: true,
-  }).catch(() => Alert.alert("Impossible d'ouvrir le navigateur"))
+  }).catch(() => Alert.alert("Impossible d'ouvrir le navigateur"));
 }

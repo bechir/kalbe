@@ -11,6 +11,7 @@ export function useUserDetails() {
     const { userDetails, state: { user, isLoading } } = useUser();
     const { signout, state: { token } } = useAuth();
     const mountedRef = React.useRef<boolean>();
+    const [error, setError] = React.useState<string | null>(null);
     const { t } = useTranslation();
 
     React.useEffect(() => {
@@ -26,6 +27,7 @@ export function useUserDetails() {
                         type: 'error'
                     })
                 } else {
+                    setError(err.message);
                     Toast.show({
                         text1: err.message,
                         position: 'bottom',
@@ -40,5 +42,5 @@ export function useUserDetails() {
         }
     }, [token]);
 
-    return { user, token, signout, isLoading }
+    return { user, token, error, signout, isLoading }
 }

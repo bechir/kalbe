@@ -20,9 +20,11 @@ interface UserAction {
 export type UserContextType = {
   userDetails: () => Promise<void>;
 
+  saveNotificationToken: (notificationToken: string) => Promise<void>;
   confirmPhoneNumber: () => Promise<void>;
   createPasscode: (passcode: string) => Promise<void>;
   deleteAccount: () => Promise<void>;
+  updateUser: (data: User) => Promise<void>;
 
   state: UserState;
 };
@@ -73,6 +75,38 @@ const userDetails = (dispatch: Dispatch<UserAction>) => async () => {
   });
 };
 
+const updateUser = (dispatch: Dispatch<UserAction>) => async (user: User) => {
+  dispatch({ type: "UPDATE_USER", payload: user })
+  return AsyncStorage.setItem(USER_DETAILS_ID, JSON.stringify(user))
+}
+
+const saveNotificationToken = (dispatch: Dispatch<UserAction>) => async (notificationToken: string) => {
+  dispatch({ type: "LOADING" });
+  return new Promise<void>((resolve, reject) => {
+    userService.saveNotificationToken(notificationToken)
+    .then((data) => {
+      if (data.errors) {
+        dispatch({
+          type: "ADD_ERROR",
+          payload: data.errors.join("\n"),
+        });
+        reject(new Error(data.errors.join("\n")));
+      } else {
+        AsyncStorage.setItem(
+          USER_DETAILS_ID,
+          JSON.stringify(data)
+        );
+        dispatch({ type: "UPDATE_USER", payload: data });
+        resolve();
+      }
+    })
+    .catch((err: any) => {
+      dispatch({ type: "ADD_ERROR", payload: err.message });
+      reject(new Error(err.message));
+    });
+  })
+}
+
 const confirmPhoneNumber =
   (dispatch: Dispatch<UserAction>) => async () => {
     dispatch({ type: "LOADING" });
@@ -90,7 +124,7 @@ const confirmPhoneNumber =
       .catch((err: any) => {
         // TODO log error with Crashlytics
         dispatch({ type: "ADD_ERROR", payload: err.message });
-        reject(err.message);
+        throw err;
       });
     });
   };
@@ -112,7 +146,7 @@ const confirmPhoneNumber =
       .catch((err: any) => {
         // TODO log error with Crashlytics
         dispatch({ type: "ADD_ERROR", payload: err.message });
-        reject(err.message);
+        reject(new Error(err.message));
       });
     });
   };
@@ -154,6 +188,8 @@ export const { Provider: UserProvider, Context: UserContext } =
       confirmPhoneNumber,
       createPasscode,
       deleteAccount,
+      updateUser,
+      saveNotificationToken,
     },
     DEFAULT_STATE
   );

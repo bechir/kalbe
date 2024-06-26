@@ -3,7 +3,7 @@ import {
   Container,
   CreatePasscodeAlertButton,
   Text,
-  VerifyIdentityButton
+  UserNotVerified,
 } from "components";
 import React from "react";
 import NoCard from "./components/NoCard";
@@ -12,11 +12,12 @@ import ClickToShowCardInfo from "./components/ClickToShowCardInfo";
 import { ScrollView } from "react-native-gesture-handler";
 import MyCards from "./components/MyCards";
 import { EmptyReturnFn } from "types";
-import { useUser, useVerifyIdentity } from "hooks";
+import { useUser } from "hooks";
 
 const Cards = ({ navigation }: CardsStackScreenProps<"Cards">) => {
-  const { state: { user } } = useUser();
-  const { VerifyIdentityModal, toggleVerifyIdentityModal } = useVerifyIdentity();
+  const {
+    state: { user },
+  } = useUser();
 
   const onCardRequest = () => {
     navigation.navigate("CardRequest");
@@ -24,15 +25,14 @@ const Cards = ({ navigation }: CardsStackScreenProps<"Cards">) => {
 
   const handleCreatePasscode = () => {
     navigation.navigate("CreatePasscode");
-  }
+  };
 
-  if(!user) {
+  if (!user) {
     return null;
   }
 
   return (
     <Container innerPadding>
-      <VerifyIdentityModal />
       <CardTitle onCardRequest={onCardRequest} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ClickToShowCardInfo />
@@ -40,9 +40,14 @@ const Cards = ({ navigation }: CardsStackScreenProps<"Cards">) => {
           <MyCards />
         ) : (
           <React.Fragment>
-            {!user.hasPasscode && <CreatePasscodeAlertButton onPress={handleCreatePasscode} />}
-            {!user.isVerified && <VerifyIdentityButton onPress={toggleVerifyIdentityModal} />}
-            <NoCard buttonDisabled={!user.isVerified} onCardRequest={onCardRequest} />
+            {!user.hasPasscode && (
+              <CreatePasscodeAlertButton onPress={handleCreatePasscode} />
+            )}
+            <UserNotVerified status={user.status} />
+            <NoCard
+              buttonDisabled={!user.isVerified}
+              onCardRequest={onCardRequest}
+            />
           </React.Fragment>
         )}
       </ScrollView>
@@ -51,7 +56,12 @@ const Cards = ({ navigation }: CardsStackScreenProps<"Cards">) => {
 };
 
 const CardTitle = ({ onCardRequest }: { onCardRequest: EmptyReturnFn }) => (
-  <Box marginBottom="s" flexDirection="row" justifyContent="space-between" alignItems="center">
+  <Box
+    marginBottom="s"
+    flexDirection="row"
+    justifyContent="space-between"
+    alignItems="center"
+  >
     <Box>
       <Text marginVertical="none" variant="title">
         Carte virtuelle

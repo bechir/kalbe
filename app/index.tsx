@@ -5,7 +5,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { enableScreens } from "react-native-screens";
 import { useLoadAssets } from "hooks";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { ColorSchemeProvider } from "@components";
 import Navigation from "navigation";
@@ -13,8 +13,13 @@ import "./i18n";
 import { ASSETS } from "constants/app";
 import { AuthProvider } from "contexts/AuthContext";
 import { UserProvider } from "contexts/UserContext";
+import { LogBox } from "react-native";
 
 enableScreens();
+
+LogBox.ignoreLogs([
+  '[Reanimated] Reduced motion setting is enabled on this device.',
+]);
 
 const fonts = {
   SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -43,9 +48,14 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const ready = useLoadAssets(assets ?? [], fonts ?? {});
 
-  useEffect(() => {
+  const onLayoutRootView = useCallback(async () => {
     if (ready) {
-      SplashScreen.hideAsync();
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      await SplashScreen.hideAsync();
     }
   }, [ready]);
 
@@ -54,7 +64,7 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider onLayout={onLayoutRootView}>
       <AuthProvider>
         <UserProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>

@@ -18,6 +18,7 @@ export type RootStackParamList = {
   Auth: NavigatorScreenParams<AuthStackParamList> | undefined;
   Main: NavigatorScreenParams<MainTabParamList> | undefined;
   Security: NavigatorScreenParams<SecurityStackParamList> | undefined;
+  InternalError: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -62,27 +63,30 @@ export type MainTabParamList = {
   TabMenu: undefined;
 };
 
+type VerifyIdentityRoutes = {
+  VerifyIdentity: undefined;
+  UploadDocuments: undefined;
+  UploadDocumentsModal: { documentType: 'passport' | 'id_card' };
+};
+
 export type TabHomeParamList = {
   Home: undefined;
   CreatePasscode: undefined;
   CurrencyConvert: undefined;
-  VerifyIdentity: undefined;
-};
+} & VerifyIdentityRoutes;
 
 export type TabCardsParamList = {
   Cards: undefined;
   CreatePasscode: undefined;
   CardRequest: undefined;
-  VerifyIdentity: undefined;
-};
+} & VerifyIdentityRoutes;
 
 export type TabMenuParamList = {
   Menu: undefined;
   About: undefined;
   Support: undefined;
-  VerifyIdentity: undefined;
   CreatePasscode: undefined;
-};
+} & VerifyIdentityRoutes;
 
 export type AuthNavigation = NativeStackNavigationProp<AuthStackParamList>;
 export type SecurityNavigation =

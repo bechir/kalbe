@@ -19,7 +19,8 @@ const palette = {
   green: '#00ab4b',
   instagram: "#E1306C",
   linkedin: "#0e76a8",
-  facebook: "#4267B2"
+  facebook: "#4267B2",
+  info: "#B9D9EB"
 };
 
 export const theme = createTheme({
