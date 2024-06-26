@@ -12,15 +12,43 @@ type UserNotVerifiedProps = {
 export const UserNotVerified = ({ status }: UserNotVerifiedProps) => {
   const { VerifyIdentityModal, toggleVerifyIdentityModal } =
     useVerifyIdentity();
-    const { radius, colors, iconSize } = useTheme();
+  const { radius, colors, iconSize } = useTheme();
 
   if (status === "none" || status === "rejected") {
     return (
       <React.Fragment>
         {status == "none" ? (
           <VerifyIdentityButton onPress={toggleVerifyIdentityModal} />
-        ) : (
-          <Text>Rejected</Text>
+        ) : (<Box>
+          <Box
+            marginTop="m"
+            alignItems="center"
+            flexDirection="row"
+            paddingVertical="m"
+            paddingHorizontal="s"
+            borderRadius={radius.s}
+            backgroundColor="red"
+          >
+            <Ionicons
+              color={colors.white}
+              name="close"
+              size={iconSize.l}
+            />
+            <Box marginStart="s" flex={1}>
+              <Text marginTop="none" color="white" variant="button">
+                Échec de la vérification
+              </Text>
+              <Text
+                fontSize={11}
+                color="white"
+                fontFamily="SFProDisplaySemiBold"
+              >
+                La vérification d'identité pour votre compte a échoué, veuillez réssayer.
+              </Text>
+            </Box>
+          </Box>
+          <VerifyIdentityButton onPress={toggleVerifyIdentityModal} />
+          </Box>
         )}
         <VerifyIdentityModal />
       </React.Fragment>

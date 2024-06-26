@@ -46,6 +46,11 @@ export function kycVerification(data: FormData): Promise<User> {
     .then((res) => res.data);
 }
 
+export function saveNotificationToken(notificationToken: string) {
+  return axios.post('/account/notification/save-token', {notificationToken})
+  .then(res => res.data)
+}
+
 export function details(): Promise<User | null> {
   return axios
     .get("/account", { cache: false })

@@ -4,7 +4,7 @@ import fr from "./i18n/fr.json";
 
 export type Locale = ApplicationConfig["i18n"]["locales"][number];
 
-const URL = "http://localhost:8000";
+const URL = "https://01d3-41-188-105-226.ngrok-free.app";
 
 export type ApplicationConfig = {
   app: {
